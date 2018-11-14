@@ -1,0 +1,99 @@
+<p-toast [style]="{marginTop: '80px'}"></p-toast>
+<div class="ui-g ui-fluid">
+
+  <p-panel header="Cadastrar item" class="ui-g-10 ui-md-6 ui-lg-4 center-panel">
+  
+  <div class="">
+    <form #f ="ngForm" id="f" (submit)="validate(f)" >
+      <div class="form-group">
+      <br/>
+      <span class="ui-float-label">
+        <input type="text" pInputText name="name" [(ngModel)]="item.name" required maxlength="50" pattern="[a-zA-Z ]*" #name="ngModel" title="Digite o nome do item">
+        <label for="float-input" > Nome do item</label>
+      </span>
+
+      <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert-danger">
+        <div *ngIf="name.errors.required">
+          O nome do item é obrigatório
+        </div>
+        <div *ngIf="name.errors.minlength">
+          O nome do item pode conter até 50 caracteres
+        </div>
+        <div *ngIf="name.errors.pattern">
+          O nome do item pode conter apenas letras
+        </div>
+      </div>
+      <br/>
+
+      <p-selectButton [options]="types" [(ngModel)]="item.unit" [ngModelOptions]="{standalone: true}" required #unit=ngModel title="Selecione a unidade de medida do item"></p-selectButton>
+      
+        <div>
+        <p>Unidade: <span style="font-weight: bold">{{item.unit ? item.unit : 'nenhuma'}}</span></p>
+        </div>
+        <div *ngIf="unit.invalid">
+          <div *ngIf="unit.errors.required">
+            <p>O tipo de unidade do item é obrigatório</p>
+          </div>
+        </div>
+      
+      <br/>
+
+      <span class="ui-float-label">
+        <input name="quantity" [(ngModel)]="item.quantity" type="text" pInputText required #quantity="ngModel" title="Informe a quantidade de acordo com a unidade de medida" >
+        <label for="float-input">Quantidade</label>
+      </span>
+      <div *ngIf="unit.invalid">
+          <div *ngIf="unit.errors.required">
+            <p>A quantidade do item é obrigatória</p>
+          </div>
+        </div>
+      <br/>
+
+      <span class="ui-float-label">
+        <input type="text" pInputText name="price" [(ngModel)]="item.price" required pattern="^R\$[0-9]+(\,[0-9]{2})?$" #price="ngModel" title="Informe o preço do item no formato R$99,99">
+        <label for="float-input">Preço</label>
+      </span>
+      <div *ngIf="price.invalid && (price.dirty || price.touched)" class="alert-danger">
+
+          <div *ngIf="price.errors.required">
+            O preço do item é obrigatório
+          </div>
+          <div *ngIf="price.errors.pattern">
+            O preço do item deve seguir o formato R$99,99
+          </div>
+  
+        </div>
+      <br/>
+
+      <p-checkbox name="perishable" [(ngModel)]="item.perishable" [ngModelOptions]="{standalone: true}" value="Perecível" label="Perecível" binary="true" #perishable="ngModel" title="Informe se o item é perecível. Caso não seja, deixe desmarcado"></p-checkbox>
+      <br/><br/>
+
+      <span class="ui-float-label">
+          <p-calendar name="expiration" [(ngModel)]="item.expiration" [locale]="pt" dateFormat="dd/mm/yy" [showIcon]="true" #expiration="ngModel" title="Informe a data de validade do item caso ele seja perecível"></p-calendar>
+          <label for="float-input">Data de validade</label>
+        </span>
+      
+      <br/>
+
+      
+
+      <span class="ui-float-label">
+          <p-calendar name="manufacture" [(ngModel)]="item.manufacture" [locale]="pt" dateFormat="dd/mm/yy" [showIcon]="true" required #manufacture="ngModel" title="Informe a data de fabricação do item"></p-calendar>
+          <label for="float-input">Data de fabricação</label>
+        </span>
+        <div *ngIf="manufacture.invalid">
+            <div *ngIf="manufacture.errors.required">
+              <p>A data de fabricação é obrigatória</p>
+            </div>
+          </div>
+      
+      <br/>
+
+      <button pButton type="submit" icon="pi pi-save" label="Salvar" class="ui-button-success" [disabled]="!f.valid" title="Adicionar item"></button>
+      <br/><br/>
+      <button pButton type="button" icon="pi pi-times" label="Cancelar" routerLink = '/list' title="Cancelar operação"></button>
+      </div>
+    </form>
+  </div>
+  </p-panel>
+</div>

@@ -1,0 +1,27 @@
+/* You can add global styles to this file, and also import other style files */
+
+
+@import url("../node_modules/primeicons/primeicons.css");
+@import url("../node_modules/primeng/resources/primeng.min.css");
+@import url("../node_modules/primeng/resources/themes/nova-colored/theme.css");
+
+
+@media screen and (min-width: 600px) {  
+    .center-panel {
+      width: 600px;
+      margin: 0 auto;
+    }
+
+
+  }
+
+
+
+  .padding-left-input {
+      padding-left: 10px;
+  }
+
+  .alert-danger {
+    background-color:brown; 
+    color:white;
+  }
