@@ -29,21 +29,17 @@ export class FormComponent implements OnInit {
 
   types: SelectItem[];
   pt: any;
-  
+  editing: boolean;
 
   item: Item = new Item();
   
 
   constructor(public dataService: DataService, private messageService: MessageService, private route: ActivatedRoute) { 
-    /*
-    console.log(this.route.snapshot.params['id'], "entrando na pagina");
-    if(this.route.snapshot.params['id'] != null){
-      this.uidReceived = this.route.snapshot.params['id'];
-      this.itemEdit.uid = this.uidReceived;
-      this.editItem(this.itemEdit);
-    }
     
-    */
+
+    
+    
+    
     
     this.types = [
       {label: 'Litro', value: 'Litro'},
@@ -69,7 +65,11 @@ export class FormComponent implements OnInit {
       clear: 'Limpar'
     };
 
-    
+    if(this.route.snapshot.params['id'] != null){
+      this.editing = true;
+      this.uidReceived = this.route.snapshot.params['id'];
+      this.getEditItem(this.uidReceived);
+    }
   }
 
   validate(form: NgForm){
@@ -118,13 +118,24 @@ export class FormComponent implements OnInit {
       }
     }
 
-     
+     if(this.editing){
+        this.editItem(form);
+     }
+     else{
       this.addItem(form);
+     }
+      
       
 
       
   }
 
+  editItem(form: NgForm){
+    this.dataService.removeItem(this.item);
+    this.dataService.addItem(this.item);
+
+    this.messageService.add({severity:'success', summary: 'Item editado', detail:'O item foi editado com sucesso'});
+  }
     
   
 
@@ -151,9 +162,11 @@ export class FormComponent implements OnInit {
 
   }
 
-  editItem(item: Item){
-    console.log(item.uid, 'na funcao iddititem')
-    this.itemEdit = this.dataService.getItemByUid(item);
+  getEditItem(uid: string){
+    
+    this.item = this.dataService.getItemByUid(uid);
+
+    
 
   }
 }

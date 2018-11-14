@@ -48,9 +48,6 @@ export class ListComponent implements OnInit {
 
   sortOrder: number;
 
-  mdate: string;
-  edate: string;
-
   pt: any;
 
   constructor(public dataService: DataService, private confirmationService: ConfirmationService, private messageService: MessageService) { }

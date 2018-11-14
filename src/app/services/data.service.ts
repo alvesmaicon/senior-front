@@ -48,16 +48,22 @@ export class DataService {
     }
   }
 
-  getItemByUid(item: Item): Item {
+  getItemByUid(uid: string): Item {
     this.items = this.getItems();
-    console.log(item.uid, this.items, 'log na getitembyuid');
-    for ( let j = 0; this.items.length; j++){
-      if ( item.uid == this.items[j].uid){
-       // item = this.items[j];
-       
+    let item: Item = new Item();
+    for ( let item_of of this.items){
+      if (item_of.uid === uid){
+        
+        item = item_of;
+        if(item_of.expiration != null){
+          item.expiration = new Date(item_of.expiration.valueOf().toString());
+        }
+
+        item.manufacture = new Date(item_of.manufacture.valueOf().toString());
+        break;
       }
     }
-    console.log(item.name, 'after grab');
+
 
     return item;
   }
