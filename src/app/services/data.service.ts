@@ -40,9 +40,12 @@ export class DataService {
 
 
   removeItem(item: Item){
-    for ( let i = 0; this.items.length; i++){
-      if ( item.uid == this.items[i].uid){
-        this.items.splice(i, 1);
+    for ( let item_of of this.items){
+      if (item_of.uid === item.uid){
+        const index = this.items.indexOf(item_of, 0);
+        if (index > -1) {
+          this.items.splice(index, 1);
+        }
         localStorage.setItem('items', JSON.stringify(this.items));
       }
     }
