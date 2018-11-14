@@ -44,6 +44,8 @@ export class ListComponent implements OnInit {
 
   sortField: string;
 
+  index: number;
+
   sortOrder: number;
 
   mdate: string;

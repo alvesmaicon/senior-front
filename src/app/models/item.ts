@@ -6,8 +6,10 @@ export class Item {
     expiration: Date;
     manufacture: Date;
     unit: string;
+    uid:string;
 
     constructor(){
+        this.uid = '';
         this.name = '';
         this.quantity = '';
         this.perishable = false;

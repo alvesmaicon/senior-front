@@ -27,6 +27,8 @@ import {ToastModule} from 'primeng/toast';
 import {KeyFilterModule} from 'primeng/keyfilter';
 import {MessageModule} from 'primeng/primeng';
 import {InputMaskModule} from 'primeng/inputmask';
+import { UUID } from 'angular2-uuid';
+import { EditComponent } from './components/edit/edit.component';
 
 
 @NgModule({
@@ -35,6 +37,9 @@ import {InputMaskModule} from 'primeng/inputmask';
     ListComponent,
     FormComponent,
     NavComponent,
+    EditComponent,
+    
+    
     
   ],
   imports: [
@@ -58,7 +63,9 @@ import {InputMaskModule} from 'primeng/inputmask';
     ToastModule,
     KeyFilterModule,
     MessageModule,
-    InputMaskModule
+    InputMaskModule,
+    
+    
    
   ],
   providers: [
@@ -66,6 +73,10 @@ import {InputMaskModule} from 'primeng/inputmask';
     ConfirmationService,
     MessageService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+
+  exports: [
+   
+ ]
 })
 export class AppModule { }

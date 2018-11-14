@@ -37,25 +37,29 @@ export class DataService {
     }
 
   }
-  /*
-  removeItem(item : Item) {
+
+
+  removeItem(item: Item){
     for ( let i = 0; this.items.length; i++){
-      if ( item == this.items[i]){
+      if ( item.uid == this.items[i].uid){
         this.items.splice(i, 1);
         localStorage.setItem('items', JSON.stringify(this.items));
       }
     }
   }
-  */
 
-  removeItem(item: Item){
-    for ( let i = 0; this.items.length; i++){
-      if ( item.name == this.items[i].name){
-        this.items.splice(i, 1);
-        localStorage.setItem('items', JSON.stringify(this.items));
+  getItemByUid(item: Item): Item {
+    this.items = this.getItems();
+    console.log(item.uid, this.items, 'log na getitembyuid');
+    for ( let j = 0; this.items.length; j++){
+      if ( item.uid == this.items[j].uid){
+       // item = this.items[j];
+       
+      }
     }
+    console.log(item.name, 'after grab');
 
+    return item;
   }
-}
 
 }

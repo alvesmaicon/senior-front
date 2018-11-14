@@ -42,7 +42,7 @@
                     <button pButton type="button" icon="pi pi-info-circle" (click)="selectItem($event, item) " title="Ver detalhes do item"></button>
                 </div>
                 <div class="ui-g-4 ui-md-2">
-                    <button pButton type="button" icon="pi pi-pencil" (click)="selectItem($event, item)" title="Editar item"></button>
+                    <button pButton type="button" icon="pi pi-pencil" title="Editar item" [routerLink]="['../form', item.uid]"></button>
                 </div>
                 <div class="ui-g-4 ui-md-2">
                     <button pButton class="ui-button-danger" type="button" icon="pi pi-trash" (click)="confirmRemoveItem($event, item)" title="Remover item"></button>

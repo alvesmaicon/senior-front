@@ -3,6 +3,9 @@ import { Item } from '../../models/item';
 import {SelectItem, MessageService} from 'primeng/api';
 import { DataService } from 'src/app/services/data.service';
 import { FormsModule, NgForm } from '@angular/forms';
+import { RouterLinkActive, ActivatedRoute } from '@angular/router';
+import { UUID } from 'angular2-uuid';
+
 
 
 
@@ -15,7 +18,9 @@ import { FormsModule, NgForm } from '@angular/forms';
 
 export class FormComponent implements OnInit {
 
- 
+  uid: string;
+  uidReceived: string;
+  itemEdit: Item = new Item();
   
   valid: boolean = false;
   today: Date = new Date();
@@ -24,10 +29,22 @@ export class FormComponent implements OnInit {
 
   types: SelectItem[];
   pt: any;
+  
 
   item: Item = new Item();
+  
 
-  constructor(public dataService: DataService, private messageService: MessageService) { 
+  constructor(public dataService: DataService, private messageService: MessageService, private route: ActivatedRoute) { 
+    /*
+    console.log(this.route.snapshot.params['id'], "entrando na pagina");
+    if(this.route.snapshot.params['id'] != null){
+      this.uidReceived = this.route.snapshot.params['id'];
+      this.itemEdit.uid = this.uidReceived;
+      this.editItem(this.itemEdit);
+    }
+    
+    */
+    
     this.types = [
       {label: 'Litro', value: 'Litro'},
       {label: 'Quilograma', value: 'Quilograma'},
@@ -37,7 +54,9 @@ export class FormComponent implements OnInit {
   }
 
   ngOnInit() {
-    //this.f = new FormsModule();
+    
+    
+    
     this.pt = {
       firstDayOfWeek: 0,
       dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
@@ -49,6 +68,8 @@ export class FormComponent implements OnInit {
       today: 'Hoje',
       clear: 'Limpar'
     };
+
+    
   }
 
   validate(form: NgForm){
@@ -109,7 +130,9 @@ export class FormComponent implements OnInit {
 
   addItem(form: NgForm) {
 
-    
+    this.uid = UUID.UUID();
+    console.log(this.uid);
+    this.item.uid = this.uid;
     
     this.dataService.addItem(this.item);
 
@@ -125,6 +148,12 @@ export class FormComponent implements OnInit {
 
     this.messageService.add({severity:'success', summary: 'Item adicionado', detail:'O item foi adicionado com sucesso'});
     form.resetForm();
+
+  }
+
+  editItem(item: Item){
+    console.log(item.uid, 'na funcao iddititem')
+    this.itemEdit = this.dataService.getItemByUid(item);
 
   }
 }
